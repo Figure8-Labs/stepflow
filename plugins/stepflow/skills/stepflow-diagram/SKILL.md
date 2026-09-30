@@ -1,6 +1,6 @@
 ---
 name: stepflow-diagram
-description: Draw an animated diagram of a system, a change or a request path with the StepFlow CLI (npx stepflow). Use when asked to visualise, diagram or explain a pull request, an architecture, a flow or a sequence of calls, and when asked for a sequence diagram, a flowchart, a business process or an AWS, Azure, Google Cloud or Kubernetes diagram. Produces a single animated SVG that renders in a GitHub README and can be dragged onto the StepFlow canvas to edit.
+description: Draw an animated diagram of a system, a change or a request path with the StepFlow CLI (npx getstepflow). Use when asked to visualise, diagram or explain a pull request, an architecture, a flow or a sequence of calls, and when asked for a sequence diagram, a flowchart, a business process or an AWS, Azure, Google Cloud or Kubernetes diagram. Produces a single animated SVG that renders in a GitHub README and can be dragged onto the StepFlow canvas to edit.
 ---
 
 # Drawing a diagram with StepFlow
@@ -14,12 +14,12 @@ where things go is the tool's job, and it is better at it than you are.
 
 ## The tool
 
-The CLI is on npm as `stepflow` and needs Node 18 or later. Run it through `npx`,
+The CLI is on npm as `getstepflow` and needs Node 18 or later. Run it through `npx`,
 pinned to `0.1` so a later change to the spec format cannot break what this skill
 describes:
 
 ```bash
-npx --yes stepflow@0.1 --help
+npx --yes getstepflow@0.1 --help
 ```
 
 The first run downloads it (about 650 KB); later runs use npm's cache. Nothing is
@@ -62,7 +62,7 @@ connector in turn, and each label starts with its step number: `1. Call API`,
 ## Running it
 
 ```bash
-npx --yes stepflow@0.1 draw spec.json -o docs/thing.svg
+npx --yes getstepflow@0.1 draw spec.json -o docs/thing.svg
 ```
 
 Write the spec to a temporary path rather than into somebody's repository, unless

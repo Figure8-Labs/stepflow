@@ -1,0 +1,19 @@
+{
+  "name": "Analytics pipeline on Google Cloud",
+  "direction": "LR",
+  "nodes": [
+    { "id": "apps", "label": "Apps", "sub": "events" },
+    { "id": "pubsub", "label": "Pub/Sub", "sub": "ingest", "icon": "Pub/Sub" },
+    { "id": "dataflow", "label": "Dataflow", "sub": "stream", "icon": "Dataflow" },
+    { "id": "gcs", "label": "Cloud Storage", "sub": "raw", "icon": "Cloud Storage" },
+    { "id": "bq", "label": "BigQuery", "sub": "warehouse", "icon": "BigQuery" },
+    { "id": "looker", "label": "Looker", "sub": "dashboards", "icon": "Looker" }
+  ],
+  "edges": [
+    { "from": "apps", "to": "pubsub", "label": "publish" },
+    { "from": "pubsub", "to": "dataflow", "label": "subscribe" },
+    { "from": "dataflow", "to": "gcs", "label": "archive" },
+    { "from": "dataflow", "to": "bq", "label": "stream in" },
+    { "from": "bq", "to": "looker", "label": "query" }
+  ]
+}

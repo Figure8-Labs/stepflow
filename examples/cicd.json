@@ -1,0 +1,19 @@
+{
+  "name": "Ship on merge",
+  "direction": "LR",
+  "nodes": [
+    { "id": "pr", "label": "Pull request", "sub": "merged", "icon": "GitHub" },
+    { "id": "ci", "label": "Actions", "sub": "build & test", "icon": "GitHub Actions" },
+    { "id": "pass", "label": "Tests pass?", "kind": "diamond" },
+    { "id": "reg", "label": "Registry", "sub": "image", "icon": "Docker" },
+    { "id": "prod", "label": "Production", "sub": "deploy", "kind": "rounded" },
+    { "id": "slack", "label": "Tell the author", "sub": "failed", "kind": "rect" }
+  ],
+  "edges": [
+    { "from": "pr", "to": "ci", "label": "on push" },
+    { "from": "ci", "to": "pass" },
+    { "from": "pass", "to": "reg", "label": "yes" },
+    { "from": "reg", "to": "prod", "label": "roll out" },
+    { "from": "pass", "to": "slack", "label": "no", "dashed": true }
+  ]
+}

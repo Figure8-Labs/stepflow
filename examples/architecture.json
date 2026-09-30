@@ -1,0 +1,19 @@
+{
+  "name": "Web tier on AWS",
+  "direction": "LR",
+  "nodes": [
+    { "id": "dns", "label": "Route 53", "sub": "dns", "icon": "Route 53" },
+    { "id": "cdn", "label": "CloudFront", "sub": "edge", "icon": "CloudFront" },
+    { "id": "alb", "label": "ALB", "sub": "load balancer", "icon": "Elastic Load Balancing" },
+    { "id": "ecs", "label": "ECS", "sub": "api service", "icon": "ECS" },
+    { "id": "rds", "label": "RDS", "sub": "postgres", "icon": "RDS" },
+    { "id": "s3", "label": "S3", "sub": "assets", "icon": "S3" }
+  ],
+  "edges": [
+    { "from": "dns", "to": "cdn" },
+    { "from": "cdn", "to": "alb", "label": "cache miss" },
+    { "from": "alb", "to": "ecs" },
+    { "from": "ecs", "to": "rds", "label": "query" },
+    { "from": "ecs", "to": "s3", "label": "put" }
+  ]
+}

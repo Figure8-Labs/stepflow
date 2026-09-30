@@ -1,0 +1,14 @@
+{
+  "kind": "sequence",
+  "name": "Checkout with Stripe",
+  "participants": ["Browser", "Shop API", "Stripe", "Webhook"],
+  "messages": [
+    { "from": "Browser", "to": "Shop API", "label": "POST /checkout" },
+    { "from": "Shop API", "to": "Stripe", "label": "create session" },
+    { "from": "Stripe", "to": "Shop API", "label": "session url", "reply": true },
+    { "from": "Shop API", "to": "Browser", "label": "303 redirect", "reply": true },
+    { "from": "Browser", "to": "Stripe", "label": "pay" },
+    { "from": "Stripe", "to": "Webhook", "label": "checkout.completed" },
+    { "from": "Webhook", "to": "Shop API", "label": "mark paid" }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Web app on Azure",
+  "direction": "LR",
+  "nodes": [
+    { "id": "users", "label": "Users", "sub": "browser" },
+    { "id": "fd", "label": "Front Door", "sub": "edge", "icon": "Front Door" },
+    { "id": "web", "label": "App Service", "sub": "web app", "icon": "App Services" },
+    { "id": "sql", "label": "Azure SQL", "sub": "database", "icon": "SQL Database" },
+    { "id": "bus", "label": "Service Bus", "sub": "queue", "icon": "Service Bus" },
+    { "id": "fn", "label": "Functions", "sub": "worker", "icon": "Function Apps" },
+    { "id": "blob", "label": "Blob Storage", "sub": "files", "icon": "Storage Accounts" }
+  ],
+  "edges": [
+    { "from": "users", "to": "fd", "label": "https" },
+    { "from": "fd", "to": "web" },
+    { "from": "web", "to": "sql", "label": "query" },
+    { "from": "web", "to": "bus", "label": "send" },
+    { "from": "bus", "to": "fn", "label": "trigger" },
+    { "from": "fn", "to": "blob", "label": "write" }
+  ],
+  "frames": [
+    { "id": "rg", "label": "Resource group", "contains": ["web", "sql", "bus", "fn", "blob"] }
+  ]
+}

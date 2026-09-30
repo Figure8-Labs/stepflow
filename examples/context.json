@@ -1,0 +1,17 @@
+{
+  "name": "Checkout hand-off",
+  "direction": "LR",
+  "nodes": [
+    { "id": "cart", "label": "Cart", "sub": "browser", "kind": "rounded" },
+    { "id": "pricing", "label": "Pricing", "sub": "quote & tax", "kind": "hexagon" },
+    { "id": "stripe", "label": "Stripe", "sub": "payments", "kind": "rect" },
+    { "id": "webhook", "label": "Webhook", "sub": "POST /stripe", "kind": "hexagon" },
+    { "id": "orders", "label": "Orders", "kind": "cylinder" }
+  ],
+  "edges": [
+    { "from": "cart", "to": "pricing", "label": "quote" },
+    { "from": "pricing", "to": "stripe", "label": "charge" },
+    { "from": "stripe", "to": "webhook", "label": "succeeded" },
+    { "from": "webhook", "to": "orders", "label": "write" }
+  ]
+}

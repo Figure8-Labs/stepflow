@@ -1,0 +1,20 @@
+{
+  "name": "Signup funnel",
+  "direction": "LR",
+  "nodes": [
+    { "id": "ad", "label": "Ad", "sub": "paid social", "kind": "rounded" },
+    { "id": "landing", "label": "Landing page", "kind": "rect" },
+    { "id": "signup", "label": "Sign up", "kind": "rounded" },
+    { "id": "trial", "label": "Trial", "sub": "14 days", "kind": "diamond" },
+    { "id": "nudge", "label": "Nudge email", "sub": "day 7, idle", "kind": "rect" },
+    { "id": "paid", "label": "Paid", "kind": "rounded" }
+  ],
+  "edges": [
+    { "from": "ad", "to": "landing", "label": "click" },
+    { "from": "landing", "to": "signup" },
+    { "from": "signup", "to": "trial" },
+    { "from": "trial", "to": "nudge", "label": "stalls", "dashed": true },
+    { "from": "nudge", "to": "trial", "label": "back in", "dashed": true },
+    { "from": "trial", "to": "paid", "label": "upgrades" }
+  ]
+}

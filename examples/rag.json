@@ -1,0 +1,19 @@
+{
+  "name": "Answering from your docs",
+  "direction": "LR",
+  "nodes": [
+    { "id": "user", "label": "Question", "sub": "chat", "kind": "rounded" },
+    { "id": "api", "label": "API", "sub": "retrieve", "kind": "hexagon" },
+    { "id": "embed", "label": "Embed", "sub": "query", "kind": "rect" },
+    { "id": "vec", "label": "Vector store", "sub": "doc chunks", "kind": "cylinder" },
+    { "id": "llm", "label": "Claude", "sub": "answer", "icon": "Claude" },
+    { "id": "reply", "label": "Answer", "sub": "with sources", "kind": "rounded" }
+  ],
+  "edges": [
+    { "from": "user", "to": "api" },
+    { "from": "api", "to": "embed" },
+    { "from": "embed", "to": "vec", "label": "nearest 8" },
+    { "from": "vec", "to": "llm", "label": "context" },
+    { "from": "llm", "to": "reply" }
+  ]
+}

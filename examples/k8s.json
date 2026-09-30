@@ -1,0 +1,24 @@
+{
+  "name": "A service on Kubernetes",
+  "direction": "LR",
+  "nodes": [
+    { "id": "users", "label": "Users", "sub": "browser" },
+    { "id": "ing", "label": "Ingress", "icon": "Ingress" },
+    { "id": "svc", "label": "Service", "sub": "api", "icon": "Service" },
+    { "id": "pod1", "label": "Pod", "sub": "api-7f9c", "icon": "Pod" },
+    { "id": "pod2", "label": "Pod", "sub": "api-b21d", "icon": "Pod" },
+    { "id": "cm", "label": "ConfigMap", "icon": "ConfigMap" },
+    { "id": "pvc", "label": "Volume claim", "icon": "Persistent Volume Claim" }
+  ],
+  "edges": [
+    { "from": "users", "to": "ing", "label": "https" },
+    { "from": "ing", "to": "svc", "label": "/api" },
+    { "from": "svc", "to": "pod1", "step": 3 },
+    { "from": "svc", "to": "pod2", "step": 3 },
+    { "from": "cm", "to": "pod1", "dashed": true },
+    { "from": "pod2", "to": "pvc", "label": "mount", "dashed": true }
+  ],
+  "frames": [
+    { "id": "ns", "label": "namespace: shop", "contains": ["ing", "svc", "pod1", "pod2", "cm", "pvc"] }
+  ]
+}

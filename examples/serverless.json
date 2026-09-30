@@ -1,0 +1,23 @@
+{
+  "name": "Serverless orders on AWS",
+  "direction": "LR",
+  "nodes": [
+    { "id": "app", "label": "Mobile app", "sub": "client" },
+    { "id": "gw", "label": "API Gateway", "icon": "API Gateway" },
+    { "id": "place", "label": "Place order", "sub": "function", "icon": "Lambda" },
+    { "id": "table", "label": "Orders", "sub": "table", "icon": "DynamoDB" },
+    { "id": "bus", "label": "Events", "sub": "bus", "icon": "EventBridge" },
+    { "id": "queue", "label": "Emails", "sub": "queue", "icon": "SQS" },
+    { "id": "send", "label": "Send receipt", "sub": "function", "icon": "Lambda" },
+    { "id": "ses", "label": "SES", "sub": "email", "icon": "Simple Email Service" }
+  ],
+  "edges": [
+    { "from": "app", "to": "gw", "label": "POST /orders" },
+    { "from": "gw", "to": "place" },
+    { "from": "place", "to": "table", "label": "put" },
+    { "from": "place", "to": "bus", "label": "OrderPlaced" },
+    { "from": "bus", "to": "queue", "label": "rule" },
+    { "from": "queue", "to": "send" },
+    { "from": "send", "to": "ses", "label": "send" }
+  ]
+}

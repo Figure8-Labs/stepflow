@@ -1,0 +1,22 @@
+{
+  "name": "Customer onboarding",
+  "direction": "LR",
+  "nodes": [
+    { "id": "signup", "label": "Sign up", "kind": "pill" },
+    { "id": "verify", "label": "Verify email", "kind": "rect" },
+    { "id": "plan", "label": "Choose a plan", "kind": "rect" },
+    { "id": "paid", "label": "Paid plan?", "kind": "diamond" },
+    { "id": "pay", "label": "Pay", "sub": "card", "kind": "rect" },
+    { "id": "welcome", "label": "Welcome email", "kind": "document" },
+    { "id": "done", "label": "In the app", "kind": "pill" }
+  ],
+  "edges": [
+    { "from": "signup", "to": "verify" },
+    { "from": "verify", "to": "plan", "label": "clicked link" },
+    { "from": "plan", "to": "paid" },
+    { "from": "paid", "to": "pay", "label": "yes" },
+    { "from": "paid", "to": "welcome", "label": "free" },
+    { "from": "pay", "to": "welcome" },
+    { "from": "welcome", "to": "done" }
+  ]
+}

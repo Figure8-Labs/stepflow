@@ -1,0 +1,23 @@
+{
+  "name": "Web app on AWS",
+  "direction": "LR",
+  "nodes": [
+    { "id": "users", "label": "Users", "sub": "browser" },
+    { "id": "alb", "label": "Load balancer", "icon": "Elastic Load Balancing" },
+    { "id": "api", "label": "API", "sub": "service", "icon": "Fargate" },
+    { "id": "queue", "label": "Jobs", "sub": "queue", "icon": "SQS" },
+    { "id": "worker", "label": "Worker", "sub": "service", "icon": "Fargate" },
+    { "id": "db", "label": "Database", "sub": "postgres", "icon": "RDS" }
+  ],
+  "edges": [
+    { "from": "users", "to": "alb", "label": "https" },
+    { "from": "alb", "to": "api" },
+    { "from": "api", "to": "db", "label": "query" },
+    { "from": "api", "to": "queue", "label": "enqueue" },
+    { "from": "queue", "to": "worker" },
+    { "from": "worker", "to": "db", "label": "write" }
+  ],
+  "frames": [
+    { "id": "vpc", "label": "VPC", "group": "VPC", "contains": ["alb", "api", "worker", "db"] }
+  ]
+}

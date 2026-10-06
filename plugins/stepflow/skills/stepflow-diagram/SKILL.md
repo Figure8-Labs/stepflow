@@ -15,11 +15,11 @@ where things go is the tool's job, and it is better at it than you are.
 ## The tool
 
 The CLI is on npm as `getstepflow` and needs Node 18 or later. Run it through `npx`,
-pinned to `0.1` so a later change to the spec format cannot break what this skill
-describes:
+pinned to the version this skill describes, so a later change to the spec format
+cannot break it, and a copy npx kept from an earlier version is not used instead:
 
 ```bash
-npx --yes getstepflow@0.1 --help
+npx --yes getstepflow@0.1.1 --help
 ```
 
 The first run downloads it (about 650 KB); later runs use npm's cache. Nothing is
@@ -62,7 +62,7 @@ connector in turn, and each label starts with its step number: `1. Call API`,
 ## Running it
 
 ```bash
-npx --yes getstepflow@0.1 draw spec.json -o docs/thing.svg
+npx --yes getstepflow@0.1.1 draw spec.json -o docs/thing.svg
 ```
 
 Write the spec to a temporary path rather than into somebody's repository, unless

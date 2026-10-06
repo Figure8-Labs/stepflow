@@ -1,7 +1,7 @@
 {
   "name": "stepflow",
   "description": "Draw animated architecture, flow and sequence diagrams as a single SVG that renders in a README and opens on the StepFlow canvas to edit.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "Figure8 Labs"
   },

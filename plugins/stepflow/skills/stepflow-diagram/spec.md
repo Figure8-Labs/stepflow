@@ -11,7 +11,7 @@ where things go is StepFlow's job, and it is better at it than you are.
 ## Which shape of diagram
 
 **A sequence diagram** when the thing being explained happens over time: a
-request path, a retry, a handshake, an ordering of calls. Most changes to
+request on its way through, a retry, a handshake, an ordering of calls. Most changes to
 behaviour are this.
 
 **A flow diagram** when the thing being explained is a structure: which services
@@ -28,7 +28,7 @@ Connectors that fire together share a number, and one with no label shows the
 number alone. Write labels without numbers; they are added for you.
 
 - `"animate": false` leaves the diagram still: no dot, and no numbers. Set it
-  when somebody asks for no animation or no paths, or when the diagram shows
+  when somebody asks for no animation, or when the diagram shows
   what exists rather than something travelling through it: a topology, a set of
   components, anything with no direction of flow.
 - `"numbered": false` keeps the animation and leaves the numbers off. Set it
@@ -36,12 +36,44 @@ number alone. Write labels without numbers; they are added for you.
 
 Both go at the top level of either kind of spec, beside `name`.
 
+## Paths
+
+A diagram with a decision has more than one way through it: an order approved,
+an order rejected. Each way is a **path**, a named route the animation plays,
+which StepFlow lists in its Path tab and can highlight while the rest of the
+diagram steps back. A path is not a line; never show one by colouring lines.
+
+Leave `paths` out and the diagram has one path, in its own order. Give them,
+at the top level beside `name`, and they are the whole of the animation, the
+first the main one:
+
+```json
+"paths": [
+  { "name": "Approved", "steps": [1, 2, 3, 4], "highlight": true },
+  { "name": "Rejected", "steps": [1, 2, 5, 6], "highlight": true }
+]
+```
+
+- `steps` is what the path fires, in order: positions in `edges` for a flow, or
+  rows of `messages` for a sequence diagram (notes included in the count),
+  counting from 1. With paths given, `step` is not read.
+- Each path takes **one** branch at each decision (a `diamond`), and one
+  section of an `alt` block. A path that takes both is refused: give each
+  outcome its own path, all of them starting the same way and parting at the
+  decision.
+- `highlight: true` steps the rest of the diagram back while that path plays.
+  Worth it for paths that share most of a diagram, as outcomes do.
+- Changing a diagram you were given, keep each path's `id` as it came, also when
+  you rename it or change its route; a new path has no `id`. A path left out is
+  removed. To split one path into outcomes, change the existing path to one
+  outcome, rename it after that outcome, and add the others.
+
 ## A sequence spec
 
 ```json
 {
   "kind": "sequence",
-  "name": "Order request path",
+  "name": "Order request",
   "participants": ["Client", "Orders API", "Order queue", "Fulfilment"],
   "messages": [
     { "from": "Client", "to": "Orders API", "label": "POST /orders" },
@@ -55,7 +87,8 @@ Both go at the top level of either kind of spec, beside `name`.
 - `participants` go across the top in the order you list them. Put them in the
   order the work flows, so the arrows mostly point one way.
 - `messages` happen in the order you list them, and that **is** the animation
-  order and the numbering. There is nothing to ask for.
+  order and the numbering. There is nothing to ask for, unless the diagram has
+  outcomes that are alternatives: then give it `paths` (see "Paths" above).
 - `reply: true` draws it dashed, which is what a return is.
 - `from` and `to` have to match a participant exactly, and must differ.
 - Two messages given the same `"step"` fire together. Leave `step` off
@@ -95,7 +128,7 @@ Both go at the top level of either kind of spec, beside `name`.
 }
 ```
 
-- `direction` is `LR` for a request path, `TB` for a decision tree. `LR` reads
+- `direction` is `LR` for a request on its way through, `TB` for a decision tree. `LR` reads
   better in a README, which is a wide, short space.
 - `animate: false` leaves the diagram still, and `numbered: false` drops the
   step numbers: see "Animation and step numbers" above.
@@ -116,7 +149,7 @@ Both go at the top level of either kind of spec, beside `name`.
   | `chevron` | an arrow-shaped block | a stage of a process: Lead, Trial, Paid |
   | `note` | a page with a folded corner | a comment on the diagram |
   | `cloud` | a cloud | the internet, or a third party with no icon |
-- `sub` is a second, quieter line: a path, a port, a qualifier.
+- `sub` is a second, quieter line: a URL, a port, a qualifier.
 - Edges animate in the order the graph is walked. Give an edge a `step` only to
   change that order; two edges with the same `step` fire together.
 
